@@ -229,7 +229,7 @@ class Server extends EventEmitter {
               }
 
               if (peer.complete) {
-                allPeers[peerId].seeder = true
+                allPeers[peerId].seeder = true  //只有完成下载的peer才会标记为seeder，但是在直播下不可能有下完的，所以全是leecher
               } else {
                 allPeers[peerId].leecher = true
               }
@@ -520,7 +520,7 @@ class Server extends EventEmitter {
       if (Array.isArray(params.offers)) {
         debug('got %s offers from %s', params.offers.length, params.peer_id)
         debug('got %s peers from swarm %s', peers.length, params.info_hash)
-        peers.forEach((peer, i) => {
+        peers.forEach((peer, i) => {    //根据announce中提供的offer数量n，向peers列表中的前n个peer转发offer
           peer.socket.send(JSON.stringify({
             action: 'announce',
             offer: params.offers[i].offer,
