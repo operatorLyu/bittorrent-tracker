@@ -37,6 +37,7 @@ class Client extends EventEmitter {
     this.peerId = typeof opts.peerId === 'string'
       ? opts.peerId
       : opts.peerId.toString('hex')
+    this.serverPeerNo = -1
     this._peerIdBuffer = Buffer.from(this.peerId, 'hex')
     this._peerIdBinary = this._peerIdBuffer.toString('binary')
 
